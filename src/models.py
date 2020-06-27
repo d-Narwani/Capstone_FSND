@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 #from flask_migrate import Migrate
 from datetime import *
 from datetime import date
+import os
 
 database_path = os.environ['DATABASE_URL']
 
