@@ -51,18 +51,6 @@ def db_init_records():
     db.session.commit()
 
 
-#-----------------------------------------------------------------------------
-# Association table of actors and movies
-#-----------------------------------------------------------------------------
-
-Performance = db.Table('Performance',
-                db.Column(('movie_id'),db.Integer,db.ForeignKey('movie.id')),
-                db.Column(('actor_id'),db.Integer,db.ForeignKey('actor.id')),
-                db.Column('actor_fee',db.Float))
-
-
-
-
 class  Actor(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -88,11 +76,8 @@ class  Actor(db.Model):
             'id':self.id,
             'name':self.name,
             'gender':self.gender,
-            'age':self.age,
-            'performances':list(map(Movie.to_dict,self.performances))
+            'age':self.age
         }
-
-
 
 
 class Movie(db.Model):
@@ -100,7 +85,6 @@ class Movie(db.Model):
     title = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer)
     director = db.Column(db.String(100),nullable=False)
-    actors = db.relationship('Actor',secondary=Performance,backref=db.backref('performances'),lazy='joined')
 
     def __repr__(self):
         return f"Movie id:'{self.id}',title:'{self.title}'"
@@ -121,8 +105,7 @@ class Movie(db.Model):
             'id':self.id,
             'title':self.title,
             'director':self.director,
-            'year':self.year,
-            'actors':[obj.id for obj in self.actors]
+            'year':self.year
         }
 
 
