@@ -2,16 +2,15 @@ from flask_sqlalchemy import SQLAlchemy
 #from flask_migrate import Migrate
 from datetime import *
 from datetime import date
-import .config
 
+database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 
-
-
 def setup_db(app):
-    '''binds a flask application and a SQLAlchemy service'''
-    app.config.from_object('config')
+    """binds a flask application and a SQLAlchemy service"""
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
     db.create_all()
