@@ -39,15 +39,8 @@ def db_init_records():
         director = 'Dabra'
         ))
 
-    new_performance = Performance.insert().values(
-        movie_id = new_movie.id,
-        actor_id = new_actor.id,
-        actor_fee = 1000.00
-    )
-
     new_actor.insert()
     new_movie.insert()
-    db.session.execute(new_performance) 
     db.session.commit()
 
 
