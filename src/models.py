@@ -3,13 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import *
 from datetime import date
 
+
 db = SQLAlchemy()
 
 
 
 def setup_db(app):
     '''binds a flask application and a SQLAlchemy service'''
-    app.config.from_object('config')
+    app.config.from_object('.config')
     db.app = app
     db.init_app(app)
     db.create_all()
