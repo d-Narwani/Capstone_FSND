@@ -16,7 +16,7 @@ def create_app(test_config=None):
     CORS(app, resources={r"/*": {"origins": "*"}})
     setup_db(app)
     # db_drop_and_create_all()
-    
+
     @app.after_request
     def after_request(response):
         response.headers.add(
@@ -27,22 +27,22 @@ def create_app(test_config=None):
             'GET, PATCH, POST, DELETE, OPTIONS'
         )
         return response
-    
+
     def paginate_output(response, selection):
         page = request.args.get('page', 1, type=int)
         start = ENTRIES_PER_PAGE*(page-1)
         end = start+ENTRIES_PER_PAGE
         output = list(obj.to_dict() for obj in selection)
         return output[start:end]
-    
+
 # ------------------------------------------------------------------
 # Api endpoints
-# -----------------------------------------------------------------    
-    
+# ------------------------------------------------------------------
+
     @app.route('/')
     def index():
         return 'Home'
-    
+
     @app.route('/actors')
     @requires_auth('get:actors')
     def get_actors(payload):
@@ -57,7 +57,7 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    
+
     @app.route('/actors', methods=['POST'])
     @requires_auth('post:actors')
     def add_actors(payload):
@@ -81,7 +81,7 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    
+
     @app.route('/actors/<int:actor_id>', methods=['PATCH'])
     @requires_auth('update:actors')
     def update_actors(payload, actor_id):
@@ -108,7 +108,7 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    
+
     @app.route('/actors/<int:actor_id>', methods=['DELETE'])
     @requires_auth('delete:actors')
     def delete_actors(payload, actor_id):
@@ -123,11 +123,11 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-    
+
     # -----------------
     # Movies endpoints
     # -----------------
-    
+
     @app.route('/movies')
     @requires_auth('get:movies')
     def get_movies(payload):
@@ -142,7 +142,7 @@ def create_app(test_config=None):
               }), 200
             except:
                 abort(422)
-       
+
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movies')
     def add_movies(payload):
@@ -168,7 +168,7 @@ def create_app(test_config=None):
             }), 200
             except:
                 abort(422)
-    
+
     @app.route('/movies/<int:movie_id>', methods=['PATCH'])
     @requires_auth('update:movies')
     def update_movies(payload, movie_id):
@@ -196,7 +196,7 @@ def create_app(test_config=None):
             }), 200
             except:
                 abort(422)
-    
+
     @app.route('/movies/<int:movie_id>', methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movies(payload, movie_id):
@@ -211,11 +211,11 @@ def create_app(test_config=None):
             }), 200
         except:
             abort(422)
-      
+
     # -----------------------------------------------------------------------------
     # Error Handlers
     # -----------------------------------------------------------------------------
-    
+
     @app.errorhandler(422)
     def unprocessable(error):
         return jsonify({
@@ -223,7 +223,7 @@ def create_app(test_config=None):
             "error": 422,
             "message": "unprocessable"
         }), 422
-    
+
     @app.errorhandler(404)
     def resource_not_found(error):
         return jsonify({
@@ -231,7 +231,7 @@ def create_app(test_config=None):
             "error": 404,
             "message": "resource not found"
         }), 404
-    
+
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({
@@ -239,7 +239,7 @@ def create_app(test_config=None):
             "error": 400,
             "message": "bad request"
         }), 400
-    
+
     @app.errorhandler(AuthError)
     def auth_error(error):
         return jsonify({
@@ -247,7 +247,7 @@ def create_app(test_config=None):
           "error": error.status_code,
           "message": error.error['description']
         }), error.status_code
-    
+
     return app
 
 APP = create_app()
