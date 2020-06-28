@@ -3,6 +3,10 @@ Casting Agency App
 
 Heroku Link: https://fsndfinal2.herokuapp.com/
 
+# Motivation for Project
+
+This app is the capstone project of Udacity's Full Stack Web Developer program. It is built to streamline the mnaging process of casting agencies. By using the app, the casting agency can input actors and movies and have role based access to the data. 
+
 ## Getting Started
 
 ### Installing Dependencies
