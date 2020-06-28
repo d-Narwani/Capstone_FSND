@@ -4,9 +4,6 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-#https://udacity-2015bb5.auth0.com/authorize?audience=actors&&response_type=token&client_id=je3vIPJUnSAr7TRHAdCRpLUSd8Im51Nw&redirect_uri=http://127.0.0.1:5000/
-
-
 AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
 ALGORITHMS = os.environ['ALGORITHMS']
 API_AUDIENCE = os.environ['API_AUDIENCE']
