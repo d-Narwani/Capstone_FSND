@@ -1,11 +1,11 @@
 import os
+import datetime
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from .models import Actor, Movie, setup_db, db_drop_and_create_all,db_init_records
+from .models import Actor, Movie, setup_db, 
+db_drop_and_create_all, db_init_records
 from .auth import AuthError, requires_auth
-import datetime
-
 
 ENTRIES_PER_PAGE=10
 
@@ -21,15 +21,15 @@ def create_app(test_config=None):
   def after_request(response):
         response.headers.add(
           'Access-Control-Allow-Headers',
-        'Content-Type,Autorization,true')
+        'Content-Type, Autorization, true')
         response.headers.add(
           'Access-Control-Allow-Methods',
-          'GET,PATCH,POST,DELETE,OPTIONS'
+          'GET, PATCH, POST, DELETE, OPTIONS'
         )
         return response
 
-  def paginate_output(response,selection):
-        page = request.args.get('page',1,type=int)
+  def paginate_output(response, selection):
+        page = request.args.get('page', 1, type=int)
         start = ENTRIES_PER_PAGE*(page-1)
         end = start+ENTRIES_PER_PAGE
         output = list(obj.to_dict() for obj in selection)
@@ -247,7 +247,6 @@ def create_app(test_config=None):
           "error":error.status_code,
           "message":error.error['description']
         }),error.status_code
-
 
   return app
 
