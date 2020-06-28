@@ -146,7 +146,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         })
         data = json.loads(res.data)
 
-        self.assertEqual(res.status_code,401)
+        self.assertEqual(res.status_code, 401)
         self.assertFalse(data["success"])
         self.assertIn('message', data)
 
@@ -203,8 +203,8 @@ class CastingAgencyTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertTrue(data["success"])
-        self.assertIn('new_movie', data)    
-    
+        self.assertIn('new_movie', data)
+
     def test_422_create_movie(self):
         """Failing Test for POST /movies"""
         res = self.client().post('/movies', headers={
